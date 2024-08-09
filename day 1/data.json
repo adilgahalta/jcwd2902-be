@@ -11,6 +11,10 @@
     {
       "name": "iphone",
       "id": 3
+    },
+    {
+      "name": "iphone 2",
+      "id": 4
     }
   ]
 }
