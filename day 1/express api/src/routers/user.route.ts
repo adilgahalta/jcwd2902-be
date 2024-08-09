@@ -44,6 +44,7 @@ userRouter.post("/", (req, res) => {
 });
 
 userRouter.delete("/:id", (req, res) => {
+  const { id } = req.params;
   const data: IData = getData();
   const index = data.users.findIndex((user) => user.id == Number(id));
   data.users.splice(index, 1);
