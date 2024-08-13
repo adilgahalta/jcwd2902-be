@@ -1,9 +1,12 @@
 /** @format */
 import fs from "fs";
 import express, { Application, Request, Response } from "express";
+import { config } from "dotenv";
+config();
 const PORT = process.env.PORT || 8000;
 const app: Application = express();
-app.use(express.json());
+app.use(express.json()); // req.body json
+app.use(express.urlencoded()); //req.body formencode
 interface IProduct {
   id: number;
   product_name: string;
@@ -17,7 +20,7 @@ interface IData {
 const path = __dirname + "/data.json";
 
 const getData = (): IData => JSON.parse(fs.readFileSync(path, "utf8"));
-const writeData = (data: any): void =>
+const writeData = (data: IData): void =>
   fs.writeFileSync(path, JSON.stringify(data));
 
 app.get("/", (req, res) => {
@@ -32,16 +35,20 @@ app.get("/products", (req: Request, res: Response) => {
 
 app.get("/products/:id", (req: Request, res: Response) => {
   const { id } = req.params;
-  const data = getData();
+  const data = getData(); // { products: []}
   const findProduct = data.products.find((product) => product.id == Number(id));
+  if (!findProduct)
+    return res
+      .status(404)
+      .send({ success: false, message: "product not found" });
   res.send({ success: true, data: findProduct });
 });
 app.post("/products", (req: Request, res: Response) => {
   const data = getData(); // { products: [] }
 
   const newUser: IProduct = req.body;
-  console.log(req.body);
 
+  // generate id
   const id = data.products.length
     ? data.products[data.products.length - 1].id + 1
     : 1;
@@ -58,6 +65,11 @@ app.delete("/products/:id", (req: Request, res: Response) => {
   const data: IData = getData();
   const index = data.products.findIndex((product) => product.id == Number(id));
   data.products.splice(index, 1);
+  if (index === -1) {
+    return res
+      .status(404)
+      .send({ success: false, message: "product not found" });
+  }
   writeData(data);
   res.send({
     success: true,
@@ -68,6 +80,11 @@ app.patch("/products/:id", (req: Request, res: Response) => {
   const { id } = req.params;
   const data: IData = getData();
   const index = data.products.findIndex((product) => product.id == Number(id));
+  if (index === -1) {
+    return res
+      .status(404)
+      .send({ success: false, message: "product not found" });
+  }
   data.products[index] = { ...data.products[index], ...req.body };
   writeData(data);
   res.send({
