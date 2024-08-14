@@ -1,0 +1,22 @@
+{
+  "expenses": [
+    {
+      "category": "Transport",
+      "image": "KFC_logo.svg",
+      "title": "Sate Padang",
+      "type": "expense",
+      "amount": 10000,
+      "date": "2022-01-02",
+      "id": 1
+    },
+    {
+      "category": "Food",
+      "image": "KFC_logo.svg",
+      "title": "Sate Padang",
+      "type": "income",
+      "amount": 50000,
+      "date": "2022-01-01",
+      "id": 2
+    }
+  ]
+}
