@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "warteg",
+      "nominal": 15000,
+      "type": "expense",
+      "category": "food",
+      "date": "yyy-mm-dd"
+    },
+    {
+      "id": 2,
+      "title": "gojek",
+      "nominal": 25000,
+      "type": "expense",
+      "category": "transport",
+      "date": "yyy-mm-dd"
+    },
+    {
+      "id": 3,
+      "title": "gajian",
+      "nominal": 2000000,
+      "type": "income",
+      "category": "salary",
+      "date": "yyy-mm-dd"
+    },
+    {
+      "id": 4,
+      "title": "jajan",
+      "nominal": 10000,
+      "type": "expense",
+      "category": "food",
+      "date": "yyy-mm-dd"
+    },
+    {
+      "id": 5,
+      "title": "kereta",
+      "nominal": 5000,
+      "type": "expense",
+      "category": "transport",
+      "date": "yyy-mm-dd"
+    }
+  ]
+}
