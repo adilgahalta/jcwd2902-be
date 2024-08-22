@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Branch {
+  id        Int      @id @default(autoincrement())
+  name      String
+  location  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  Manager   Manager?
+  Class     Class[]
+
+  @@map("branches")
+}
+
+model Manager {
+  id       Int    @id @default(autoincrement())
+  name     String
+  branchId Int    @unique
+  branch   Branch @relation(fields: [branchId], references: [id])
+
+  @@map("managers")
+}
+
+model Class {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startAt   DateTime
+  endAt     DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  Branch       Branch         @relation(fields: [branchId], references: [id])
+  branchId     Int
+  ClassProgram ClassProgram[]
+
+  @@map("classes")
+}
+
+model Program {
+  id           Int            @id @default(autoincrement())
+  program      String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt
+  ClassProgram ClassProgram[]
+
+  @@map("programs")
+}
+
+model ClassProgram {
+  programId Int
+  classId   Int
+  program   Program @relation(fields: [programId], references: [id])
+  class     Class   @relation(fields: [classId], references: [id])
+
+  @@id([programId, classId])
+  @@map("class_programs")
+}
