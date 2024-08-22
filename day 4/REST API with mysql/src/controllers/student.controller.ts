@@ -5,7 +5,7 @@ import { StudentService } from "../services/student.service";
 
 export class StudentController {
   public async getAll(req: Request, res: Response) {
-    const data = await StudentService.getAllService();
+    const data = await StudentService.getAllService(req);
     res.send(responseHandler("get all students", data));
   }
   public async getById(req: Request, res: Response) {
