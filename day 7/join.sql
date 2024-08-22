@@ -60,3 +60,8 @@ select * from film;
 
 
 select * from film_actor where film_id = 1000;
+
+
+use learn_prisma;
+select * from branches;
+insert into managers (`name`,`branchId`) VALUES ("vincent", 1);
