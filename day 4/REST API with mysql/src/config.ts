@@ -1,6 +1,6 @@
 /** @format */
 import { config } from "dotenv";
-config();
+config(); // load env
 export const PORT = process.env.PORT || 8000;
 export const mysql_config = {
   host: process.env.DB_HOST || "localhost",
